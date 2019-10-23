@@ -8,6 +8,8 @@ from pandas import DataFrame
 import os
 import sqlite3
 
+array_api = Blueprint('array_api', __name__)
+
 trainDF = pd.read_csv('cs-test.csv')
 
 conn = sqlite3.connect('applicant_info.db')
@@ -29,22 +31,45 @@ c.close()
 
 
 
+
 sql_data = []
 fetched_info = []
-var = [48, 52]
+var = [55]
+
+@array_api.route('/uservar', methods=['GET', 'POST'])
+def serve_array():
+
+    var.append(request.json["item"])
+    print("var at line 42   "   + str(var))
+    
+    
+    return jsonify(success=True)
+
+@array_api.route('/fetched_info', methods=['GET'])
+def server_all_fetched_info():
+    
+    return jsonify(success=True)
+
+"""
+The problem now is scope for the code below. It is possible not to get integers
+from user but the placement, in the order of logic, for the SQL query is still 
+unresolved
+"""
+
+
 c.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
 fetched_info = c.fetchall()
 
-array_api = Blueprint('array_api', __name__)
+
+"""
+THE CODE BELOW IS GOOD! It just isn't what is needed now. The fetched info var
+must now find it's way into var array instaniated above
 
 @array_api.route('/fetched_info', methods=['GET'])
 def server_all_fetched_info():
     return jsonify({"items": fetched_info})
 
-@array_api.route('/uservar', methods=['GET', 'POST'])
-def serve_array():
+"""
 
-    fetched_info.append(request.json["item"])
-    
-    return jsonify(success=True)
+
 

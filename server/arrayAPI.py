@@ -22,22 +22,13 @@ trainDF.to_sql('APPLICANTS', conn, if_exists='replace', index = False)
 c.execute('''  
 SELECT * FROM APPLICANTS
           ''')
-"""
-code below is interesting:
-cursor.execute("INSERT INTO table VALUES (%s, %s, %s)", (var1, var2, var3))
-or
-cursor.execute("INSERT INTO table VALUES (?, ?, ?)", (var1, var2, var3))
-or
-t = ('RHAT',)
-c.execute('SELECT * FROM stocks WHERE symbol=?', t)
 
-
-"""
 
 
 sql_data = []
-var = ('48',)
-c.execute("SELECT * FROM APPLICANTS WHERE age=?", var)
+var = [48, 52]
+
+c.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
 fetched_info = c.fetchall()
 
 

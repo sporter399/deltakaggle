@@ -1,11 +1,14 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
+from arrayAPI import array_api
 
-array = ['dogs', 'cats', 'chickens']
+
 
 app = Flask(__name__,
     static_folder = "./dist/static",
     template_folder = "./dist"
 )
+
+app.register_blueprint(array_api)
 
 @app.route("/")
 def serve_vue_app():

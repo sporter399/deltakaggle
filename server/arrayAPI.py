@@ -35,19 +35,16 @@ var = [48, 52]
 c.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
 fetched_info = c.fetchall()
 
-
-
-array = ['dogs', 'cats', 'chickens']
-
 array_api = Blueprint('array_api', __name__)
 
-@array_api.route('/', methods=['GET', 'POST'])
+@array_api.route('/fetched_info', methods=['GET'])
+def server_all_fetched_info():
+    return jsonify({"items": fetched_info})
+
+@array_api.route('/uservar', methods=['GET', 'POST'])
 def serve_array():
 
-    print("userInput in python" + request.json["item"])
-
     fetched_info.append(request.json["item"])
-    print(fetched_info)
     
-    return jsonify({"animals": array}, {"applicants": fetched_info})
+    return jsonify(success=True)
 

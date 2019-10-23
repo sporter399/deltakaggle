@@ -8,9 +8,11 @@ app = Flask(__name__,
 )
 
 app.register_blueprint(array_api)
-
+print("line 11 in app.py")
 @app.route('/')
 def serve_vue_app():
+    print("line 14 in app.py")
+
     """
     Server our vue app
     """

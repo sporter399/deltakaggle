@@ -20,6 +20,7 @@ export default {
     return {
       vars: [1, 2, 3],
       array: ['a', 'b', 'c'],
+      fetched_info: [4, 5, 6],
       inputValue: ''
     }
 
@@ -29,7 +30,11 @@ export default {
     userSelectsAgeClick() {
       
       
-      axios.post('/', { item: this.inputValue } )
+      axios.post('/uservar', { item: this.inputValue } )
+         .then(() => {
+          axios.get('/fetched_info').then( res => this.fetched_info = res.data.items);
+        })
+      this.inputValue = '';
       
     }
   },

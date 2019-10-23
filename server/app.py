@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from arrayAPI import array_api
 
+
 app = Flask(__name__,
     static_folder = "./dist/static",
     template_folder = "./dist"

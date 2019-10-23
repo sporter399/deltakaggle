@@ -5,10 +5,10 @@
       <li v-for="animal in array" v-bind:key="animal"> {{ animal }}</li>
     </ul>
     <ul>
-      <li v-for="applicant in sql_age" v-bind:key="applicant"> {{ applicant }}</li>
+      <li v-for="applicant in fetched_info" v-bind:key="applicant"> {{ applicant }}</li>
     </ul>
     <input v-model="inputValue"/>
-    <button @click="handleAddTodoClick">Add New Animal</button>
+    <button @click="userSelectsAgeClick">Choose Minimum Age</button>
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
   props: ['title'],
   data () {
     return {
-      sql_age: [1, 2, 3]
+      sql_age: [1, 2, 3],
       array: ['a', 'b', 'c'],
       inputValue: ''
     }
@@ -28,7 +28,7 @@ export default {
 
   },
   methods: {
-    handleAddTodoClick() {
+    userSelectsAgeClick() {
       axios.post('/todo', { item: this.inputValue } )
         .then(() => {
           axios.get('/array').then( res => this.array = res.data.animals);

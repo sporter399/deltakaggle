@@ -1,8 +1,6 @@
 from flask import Flask, render_template
 from arrayAPI import array_api
 
-
-
 app = Flask(__name__,
     static_folder = "./dist/static",
     template_folder = "./dist"
@@ -10,18 +8,23 @@ app = Flask(__name__,
 
 app.register_blueprint(array_api)
 
-@app.route("/")
+@app.route('/')
 def serve_vue_app():
-    return (render_template('index.html'))
-
-@app.route('/array', methods = ['GET'])
-def server_array():
-    return jsonify({'animals': array})
+    """
+    Server our vue app
+    """
+    return(render_template('index.html'))
 
 @app.after_request
 def add_header(req):
+    """
+    Clear Cache for hot-reloading
+    """
     req.headers["Cache-Control"] = "no-cache"
     return req
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

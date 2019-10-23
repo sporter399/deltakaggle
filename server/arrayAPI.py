@@ -11,6 +11,6 @@ def serve_array():
 
 @array_api.route('/todo', methods=['POST'])
 def add_todo():
-    arrayappend(request.json["item"])
+    array.append(request.json["item"])
     print(array)
     return jsonify(success=True) 

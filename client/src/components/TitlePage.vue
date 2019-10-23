@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ title }}</h1>
     <ul>
-      <li v-for="animal in array"> {{ animal }}</li>
+      <li v-for="animal in array" v-bind:key="animal"> {{ animal }}</li>
     </ul>
     <input v-model="inputValue"/>
     <button @click="handleAddTodoClick">Add New Animal</button>

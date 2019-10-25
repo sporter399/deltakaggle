@@ -12,7 +12,7 @@ array_api = Blueprint('array_api', __name__)
 
 trainDF = pd.read_csv('cs-test.csv')
 
-conn = sqlite3.connect('applicant_info.db')
+conn = sqlite3.connect('applicant_info.db', check_same_thread=False)
 c = conn.cursor()
 c.execute('CREATE TABLE IF NOT EXISTS APPLICANTS (SeriousDlqin2yrs number,RevolvingUtilizationOfUnsecuredLines float, age number,NumberOfTime30to59DaysPastDueNotWorse number,DebtRatio float,MonthlyIncome number,NumberOfOpenCreditLinesAndLoans number,NumberOfTimes90DaysLate number,NumberRealEstateLoansOrLines number,NumberOfTime60to89DaysPastDueNotWorse number,NumberOfDependents number)')
 conn.commit()
@@ -24,14 +24,20 @@ trainDF.to_sql('APPLICANTS', conn, if_exists='replace', index = False)
 c.execute('''  
 SELECT * FROM APPLICANTS
           ''')
-
-
+"""
 c.close()
-
+"""
 
 sql_data = []
 fetched_info = []
-var = [55]
+"""
+DO YOU NEED TO INSTANTIATE VAR IN THE PYTHON CODE OUTSIDE OF FUNCTIONS? WHAT ABOUT WITHIN
+ONE OF THE DECORATOR FUNCTIONS?, OR CAN YOU INSERT JSONREQUEST OBJECTS DIRECTLY INTO SQL QUERIES?
+WHICH THEN MIGHT REQUIRE MAX AND MIN VARIABLES TO BE EXPRESSED WITH SEPARATE FUNCTIONS IN VUE,
+WHICH MIGHT NOT BE A PROBLEM...DO YOU YOU REALLY NEED THIS LITTLE VAR LIST?
+"""
+
+
 
 
 @array_api.route('/applicants', methods=['GET'])
@@ -45,24 +51,27 @@ def serve_all_applicants():
 
 @array_api.route('/age_var', methods=['GET', 'POST'])
 def serve_age_var():
-
+    
+    var = [55]
     var.append(int(request.json["item"]))
     
-    return jsonify({"items": var})
 
-
-
-"""
-c.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
-fetched_info = c.fetchall()
-print("fetched info at line 61    "   + fetched_info)
-"""
+    c.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
     
+   
+    
+    
+    fetched_info = c.fetchall()
+    print("fetched info at line 69    "   + str(fetched_info))
+    
+    return jsonify({"items": var})
 
 
 @array_api.route('/eligible_applicants', methods=['POST'])
 def display_applicants():
 
     return jsonify(success = True)
+
+
 
 

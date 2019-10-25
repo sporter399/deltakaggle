@@ -9,7 +9,7 @@
     !-->
     
     <input v-model="inputValue"/>
-    <button @click="userSelectsAgeClick">Choose Minimum Age</button>
+    <button @click="getAge">Choose Minimum Age</button>
   </div>
 </template>
 
@@ -22,34 +22,32 @@ export default {
   props: ['title'],
   data () {
     return {
-      vars: [1, 2, 3],
-      array: ['a', 'b', 'c'],
-      fetched_info: [4, 5, 6],
+      required_age: [],
+      applicants: ['a', 'b', 'c'],
       inputValue: ''
     }
 
 
   },
   methods: {
-    userSelectsAgeClick() {
+    getAge() {
+      axios.get('/age_var')
       
+         .then(res =>  {
+           this.requiredAge = res.data.inputValue;
+           
+         })
       
-      axios.post('/uservar', { item: this.inputValue } )
-         .then(() => {
-          axios.get('/fetched_info').then( res => this.fetched_info = res.data.items);
-        })
       this.inputValue = '';
-      
     }
   },
   
   mounted() {
-    
+     axios.get('/applicants')
+      .then(res =>  this.applicants = res.data.inputValue)
   
-     
-
+    }
   }
-}
 
 </script>
 

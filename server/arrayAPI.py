@@ -29,12 +29,10 @@ SELECT * FROM APPLICANTS
 c.close()
 
 
-
-
-
 sql_data = []
 fetched_info = []
 var = [55]
+
 
 @array_api.route('/applicants', methods=['GET'])
 def serve_all_applicants():
@@ -45,17 +43,22 @@ def serve_all_applicants():
 
 
 
-@array_api.route('/age_var', methods=['GET'])
+@array_api.route('/age_var', methods=['GET', 'POST'])
 def serve_age_var():
-    
-    return jsonify({"items": fetched_info})
 
-print("var at line 53   "   + str(var))
+    var.append(int(request.json["item"]))
+    
+    return jsonify({"items": var})
+
+
 
 """
 c.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
 fetched_info = c.fetchall()
+print("fetched info at line 61    "   + fetched_info)
 """
+    
+
 
 @array_api.route('/eligible_applicants', methods=['POST'])
 def display_applicants():

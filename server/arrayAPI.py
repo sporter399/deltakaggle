@@ -37,8 +37,7 @@ code above is rather verbose!
 sql_data = []
 
 
-
-required_age = ['test']
+required_age = []
 """
 list above is all that is recogized in return below
 it's all about scope
@@ -51,9 +50,7 @@ def serve_age_var():
     var = [55]
     var.append(int(request.json["item"]))
     d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
-    required_age = d.fetchall()
-    
-   
+    required_age.append(d.fetchall())
     
     return jsonify({"items": required_age })
 

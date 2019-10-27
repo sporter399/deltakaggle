@@ -24,11 +24,14 @@ trainDF.to_sql('APPLICANTS', conn, if_exists='replace', index = False)
 c.execute('''  
 SELECT * FROM APPLICANTS
           ''')
-"""
+
 c.close()
+d = conn.cursor()
+"""
+code above is rather verbose!
 """
 sql_data = []
-fetched_info = []
+required_age = []
 
 @array_api.route('/applicants', methods=['GET'])
 def serve_all_applicants():
@@ -40,13 +43,15 @@ def serve_age_var():
     
     var = [55]
     var.append(int(request.json["item"]))
-    c.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
-    fetched_info = c.fetchall()
+    d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
+    required_age = d.fetchall()
+    print(required_age)
+    
+
     
     
     
-    
-    return jsonify({"items": var})
+    return jsonify({"items": required_age})
 
 
 @array_api.route('/eligible_applicants', methods=['POST'])

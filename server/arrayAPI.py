@@ -8,6 +8,8 @@ from pandas import DataFrame
 import os
 import sqlite3
 
+
+
 array_api = Blueprint('array_api', __name__)
 
 trainDF = pd.read_csv('cs-test.csv')
@@ -30,25 +32,34 @@ d = conn.cursor()
 """
 code above is rather verbose!
 """
-sql_data = []
-required_age = []
 
+
+sql_data = []
+
+
+
+required_age = ['test']
+"""
+list above is all that is recogized in return below
+it's all about scope
+"""
 
 
 @array_api.route('/age_var', methods=['GET', 'POST'])
 def serve_age_var():
-    
+
     var = [55]
     var.append(int(request.json["item"]))
     d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
     required_age = d.fetchall()
     
+   
     
     return jsonify({"items": required_age })
 
 @array_api.route('/applicants', methods=['GET'])
 def serve_all_applicants():
-    print("line 57")
+    
     return jsonify({"items": required_age })
 
 

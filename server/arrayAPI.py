@@ -38,17 +38,16 @@ sql_data = []
 
 
 required_age = []
-"""
-list above is all that is recogized in return below
-it's all about scope
-"""
 
 
 @array_api.route('/age_var', methods=['GET', 'POST'])
 def serve_age_var():
 
-    var = [55]
-    var.append(int(request.json["item"]))
+    var = (request.json["item"])
+    print(var)
+    """
+    var above is a list in a list and thus has one index and ints are strings
+    """
     d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
     required_age.append(d.fetchall())
     

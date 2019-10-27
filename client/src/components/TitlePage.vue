@@ -6,8 +6,10 @@
     </ul>
 
     <input v-model="inputValue"/>
-    <button @click="getAge">Choose Minimum Age</button>
-    
+    <button @click="getMinAge">Choose Minimum Age</button>
+    <br>
+    <input v-model="inputValueBeta"/>
+    <button @click="getMaxAge">Choose Maximum Age</button>
    
   </div>
 </template>
@@ -22,6 +24,7 @@ export default {
   data () {
     return {
       required_age: [48, 22, 41],
+      age_range: [],
       
       inputValue: ''
     }
@@ -29,16 +32,30 @@ export default {
 
   },
   methods: {
-    getAge() {
+    getMinAge() {
+      this.age_range.push(this.inputValue)
+
+      /*
       axios.post('/age_var', { item: this.inputValue })
          
          .then(() => {
            axios.get('/applicants').then( res => this.required_age = res.data.items);
               
          })
+      */
+      this.inputValue = '';
+    },
+
+    getMaxAge() {
+      this.age_range.push(this.inputValueBeta)
+      axios.post('age_var', { item: this.age_range })
+        .then(() => {
+          axios.get('/applicants').then( res => this.required_age = res.data.items);
+        })
       
       this.inputValue = '';
-    }
+    },
+
   },
   
   mounted() {

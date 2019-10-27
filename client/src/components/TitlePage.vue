@@ -31,6 +31,7 @@ export default {
   methods: {
     getAge() {
       axios.post('/age_var', { item: this.inputValue })
+         
          .then(() => {
            axios.get('/applicants').then( res => this.required_age = res.data.items);
               

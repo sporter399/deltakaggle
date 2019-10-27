@@ -42,19 +42,13 @@ def serve_age_var():
     var.append(int(request.json["item"]))
     d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
     required_age = d.fetchall()
-    print(required_age)
-    
-    """
-    could it be back to the subject of scope on required age?
-    """
     
     
-    
-    return jsonify(success = True)
+    return jsonify({"items": required_age })
 
 @array_api.route('/applicants', methods=['GET'])
 def serve_all_applicants():
-
+    print("line 57")
     return jsonify({"items": required_age })
 
 

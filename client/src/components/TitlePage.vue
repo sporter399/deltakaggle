@@ -1,12 +1,13 @@
 <template>
   <div class="hello">
     <h1>{{ title }}</h1>
-
-    <input v-model="inputValue"/>
-    <button @click="getAge">Choose Minimum Age</button>
     <ul>
       <li v-for="items in required_age" v-bind:key="items">{{ items }}</li>
     </ul>
+
+    <input v-model="inputValue"/>
+    <button @click="getAge">Choose Minimum Age</button>
+    
    
   </div>
 </template>
@@ -30,10 +31,9 @@ export default {
   methods: {
     getAge() {
       axios.post('/age_var', { item: this.inputValue })
-      
-         .then(() =>  {
+         .then(() => {
            axios.get('/applicants').then( res => this.required_age = res.data.items);
-           
+              
          })
       
       this.inputValue = '';
@@ -41,9 +41,10 @@ export default {
   },
   
   mounted() {
+    /*
      axios.get('/applicants')
       .then(res =>  this.applicants = res.data.inputValue)
-  
+    */
     }
   }
 

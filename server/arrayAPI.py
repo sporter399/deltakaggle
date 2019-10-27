@@ -33,10 +33,7 @@ code above is rather verbose!
 sql_data = []
 required_age = []
 
-@array_api.route('/applicants', methods=['GET', 'POST'])
-def serve_all_applicants():
 
-    return jsonify(success = True)
 
 @array_api.route('/age_var', methods=['GET', 'POST'])
 def serve_age_var():
@@ -47,17 +44,20 @@ def serve_age_var():
     required_age = d.fetchall()
     print(required_age)
     
+    """
+    could it be back to the subject of scope on required age?
+    """
+    
+    
+    
+    return jsonify(success = True)
 
-    
-    
-    
+@array_api.route('/applicants', methods=['GET'])
+def serve_all_applicants():
+
     return jsonify({"items": required_age })
 
 
-@array_api.route('/eligible_applicants', methods=['POST'])
-def display_applicants():
-
-    return jsonify(success = True)
 
 
 

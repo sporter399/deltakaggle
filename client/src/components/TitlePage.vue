@@ -7,9 +7,7 @@
     <ul>
       <li v-for="items in required_age" v-bind:key="items">{{ items }}</li>
     </ul>
-    <ul>
-      <li v-for="test in applicants" v-bind:key="test"> {{ test }}</li>
-    </ul>
+   
   </div>
 </template>
 
@@ -23,7 +21,7 @@ export default {
   data () {
     return {
       required_age: [48, 22, 41],
-      applicants: ['a', 'b', 'c'],
+      
       inputValue: ''
     }
 
@@ -32,7 +30,7 @@ export default {
   methods: {
     getAge() {
       axios.post('/age_var', { item: this.inputValue })
-      this.required_age.push(item.item)
+      
          .then(() =>  {
            axios.get('/applicants').then( res => this.required_age = res.data.items);
            

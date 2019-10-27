@@ -33,7 +33,7 @@ code above is rather verbose!
 sql_data = []
 required_age = []
 
-@array_api.route('/applicants', methods=['GET'])
+@array_api.route('/applicants', methods=['GET', 'POST'])
 def serve_all_applicants():
 
     return jsonify(success = True)
@@ -51,7 +51,7 @@ def serve_age_var():
     
     
     
-    return jsonify({"items": required_age})
+    return jsonify({"items": required_age })
 
 
 @array_api.route('/eligible_applicants', methods=['POST'])

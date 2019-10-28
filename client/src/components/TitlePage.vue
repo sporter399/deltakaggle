@@ -6,17 +6,27 @@
       <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
     </ul>
 
-    <input v-model="inputValue"/>
+    <input v-model="inputMinAgeValue"/>
     <button @click="getMinAge">Choose Minimum Age</button>
     <br>
-    <input v-model="inputValueBeta"/>
+    <input v-model="inputMaxAgeValue"/>
     <button @click="getMaxAge">Choose Maximum Age</button>
     <br>
-    <input v-model="inputValueDelta"/>
+    <input v-model="inputMinIncomeValue"/>
     <button @click="getMinIncome">Choose Minimum Monthly Income</button>
     <br>
-    <input v-model="inputValueGamma"/>
+    <input v-model="inputMaxUtilValue"/>
     <button @click="getMaxRevolving">Choose Maximum Utilization of Credit</button>
+    <br>
+    <input v-model="inputThirtySixtyValue"/>
+    <button @click="getThirtySixty">Choose Maximum Number of Thirty to Sixty Days Past Due</button>
+    <br>
+    <input v-model="inputDebtRatioValue"/>
+    <button @click="getMaxDebtRatio">Choose Maximum Debt Ratio</button>
+    <br>
+    <input v-model="inputMinLinesValue"/>
+    <button @click="getMinLines">Choose Minimum Number of Open Credit Lines</button>
+
 
    
   </div>
@@ -33,12 +43,20 @@ export default {
     return {
       age_range: [],
       min_income: [],
-      eligible_applicants: [],
       max_revolving: [],
-      inputValue: '',
-      inputValueBeta: '',
-      inputValueDelta: '',
-      inputValueGamma: ''
+      max_thirtysixty: [],
+      max_debtratio: [],
+      min_openlines: [],
+
+      eligible_applicants: [],
+      
+      inputMinAgeValue: '',
+      inputMaxAgeValue: '',
+      inputMinIncomeValue: '',
+      inputMaxUtilValue: '',
+      inputThirtySixtyValue: '',
+      inputDebtRatioValue: '',
+      inputMinLinesValue: '',
 
       
     }
@@ -47,31 +65,53 @@ export default {
   },
   methods: {
     getMinAge() {
-      this.age_range.push(this.inputValue)
-      this.inputValue = '';
+      this.age_range.push(this.inputMinAgeValue)
+      this.inputMinAgeValue = '';
     },
 
     getMaxAge() {
-      this.age_range.push(this.inputValueBeta)
-      this.inputValueBeta = '';
+      this.age_range.push(this.inputMaxAgeValue)
+      this.inputMaxAgeValue = '';
     },
 
     getMinIncome() {
-      this.min_income.push(this.inputValueDelta)
-      this.inputValueDelta = '';
+      this.min_income.push(this.inputMinIncomeValue)
+      this.inputMinIncomeValue = '';
     },
 
     getMaxRevolving() {
-      this.max_revolving.push(this.inputValueGamma)
-       axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, revolving_item: this.max_revolving })
+      this.max_revolving.push(this.inputMaxUtilValue)
+      this.inputMaxUtilValue = '';
+    },
+
+    getThirtySixty() {
+      this.max_thirtysixty.push(this.inputDebtRatioValue)
+      this.inputThirtySixtyValue = '';
+    },
+
+    getMaxDebtRatio() {
+      this.max_debtratio.push(this.inputDebtRatioValue)
+      this.inputDebtRatioValue = '';
+    },
+
+    getMinLines() {
+      this.min_openlines.push(this.inputMinLinesValue)
+       axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, revolving_item: this.max_revolving, 
+                                lessthansixty_item: this.max_thirtysixty, debtratio_item: this.max_debtratio, minlines_item: this.min_openlines })
         .then(() => {
           axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
         })
 
-      this.inputValueGamma = '';
+      this.inputMinLinesValue = '';
     },
 
-    
+
+
+
+
+
+
+
   },
   
   mounted() {

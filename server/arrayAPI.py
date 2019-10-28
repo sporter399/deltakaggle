@@ -13,11 +13,17 @@ trainDF = pd.read_csv('cs-test.csv')
 
 conn = sqlite3.connect('applicant_info.db', check_same_thread=False)
 c = conn.cursor()
-c.execute('CREATE TABLE IF NOT EXISTS APPLICANTS (SeriousDlqin2yrs number,RevolvingUtilizationOfUnsecuredLines float, age number,NumberOfTime30to59DaysPastDueNotWorse number,DebtRatio float,MonthlyIncome number,NumberOfOpenCreditLinesAndLoans number,NumberOfTimes90DaysLate number,NumberRealEstateLoansOrLines number,NumberOfTime60to89DaysPastDueNotWorse number,NumberOfDependents number)')
+c.execute('''CREATE TABLE IF NOT EXISTS APPLICANTS (SeriousDlqin2yrs number,RevolvingUtilizationOfUnsecuredLines float, 
+            age number,NumberOfTime30to59DaysPastDueNotWorse number,DebtRatio float,MonthlyIncome number,
+            NumberOfOpenCreditLinesAndLoans number,NumberOfTimes90DaysLate number,NumberRealEstateLoansOrLines number,
+            NumberOfTime60to89DaysPastDueNotWorse number,NumberOfDependents number)''')
 conn.commit()
 Applicants = trainDF
 
-trainDF = DataFrame(Applicants, columns= ['SeriousDlqin2yrs', 'RevolvingUtilizationOfUnsecuredLines', 'age', 'NumberOfTime30to59DaysPastDueNotWorse', 'DebtRatio', 'MonthlyIncome', 'NumberOfOpenCreditLinesAndLoans', 'NumberOfTimes90DaysLate', 'NumberRealEstateLoansOrLines', 'NumberOfTime60to89DaysPastDueNotWorse', 'NumberOfDependents'])
+trainDF = DataFrame(Applicants, columns= ['SeriousDlqin2yrs', 'RevolvingUtilizationOfUnsecuredLines', 'age', 
+                                        'NumberOfTime30to59DaysPastDueNotWorse', 'DebtRatio', 'MonthlyIncome', 
+                                        'NumberOfOpenCreditLinesAndLoans', 'NumberOfTimes90DaysLate', 'NumberRealEstateLoansOrLines', 
+                                        'NumberOfTime60to89DaysPastDueNotWorse', 'NumberOfDependents'])
 trainDF.to_sql('APPLICANTS', conn, if_exists='replace', index = False)
 
 c.execute('''  
@@ -36,7 +42,11 @@ def serve_user_vars():
     age_var = (request.json["age_item"])
     income_var = (request.json["income_item"])
     revolving_var = (request.json["revolving_item"])
-    d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ? AND RevolvingUtilizationOfUnsecuredLines <=?", (age_var[0], age_var[1], income_var[0], revolving_var[0]))
+    lessthansixty_var = (request.json["lessthansixty_item"])
+    debtratio_var = (request.json["debtratio_item"])
+    minlines_var = (request.json["minlines_item"])
+    d.execute('''SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ? AND RevolvingUtilizationOfUnsecuredLines<=? AND NumberOfTime30to59DaysPastDueNotWorse<=?
+                AND DebtRatio <=? AND NumberOfOpenCreditLinesAndLoans>=?''', (age_var[0], age_var[1], income_var[0], revolving_var[0], lessthansixty_var[0], debtratio_var[0], minlines_var[0]))
     eligible_applicants.append(d.fetchall())
     
     

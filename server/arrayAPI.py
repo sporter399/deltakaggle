@@ -45,8 +45,15 @@ def serve_user_vars():
     lessthansixty_var = (request.json["lessthansixty_item"])
     debtratio_var = (request.json["debtratio_item"])
     minlines_var = (request.json["minlines_item"])
-    d.execute('''SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ? AND RevolvingUtilizationOfUnsecuredLines<=? AND NumberOfTime30to59DaysPastDueNotWorse<=?
-                AND DebtRatio <=? AND NumberOfOpenCreditLinesAndLoans>=?''', (age_var[0], age_var[1], income_var[0], revolving_var[0], lessthansixty_var[0], debtratio_var[0], minlines_var[0]))
+    overninety_var = (request.json["overninety_item"])
+    realestate_var = (request.json["realestate_item"])
+    sixtyninety_var = (request.json["sixtyninety_item"])
+    maxdependents_var = (request.json["maxdependents_item"])
+    d.execute('''SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ? AND RevolvingUtilizationOfUnsecuredLines<=? 
+                AND NumberOfTime30to59DaysPastDueNotWorse<=? AND DebtRatio <=? AND NumberOfOpenCreditLinesAndLoans>=? AND NumberOfTimes90DaysLate<=? 
+                AND NumberRealEstateLoansOrLines>=? AND NumberOfTime60to89DaysPastDueNotWorse<=?
+                AND NumberOfDependents<=?''', (age_var[0], age_var[1], income_var[0], revolving_var[0], lessthansixty_var[0], 
+                debtratio_var[0], minlines_var[0], overninety_var[0], realestate_var[0], sixtyninety_var[0], maxdependents_var[0]))
     eligible_applicants.append(d.fetchall())
     
     

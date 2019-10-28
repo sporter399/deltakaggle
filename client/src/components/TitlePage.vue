@@ -26,6 +26,18 @@
     <br>
     <input v-model="inputMinLinesValue"/>
     <button @click="getMinLines">Choose Minimum Number of Open Credit Lines</button>
+    <br>
+    <input v-model="inputOverNinetyValue"/>
+    <button @click="getOverNinety">Choose Maximum Number of Over Ninety Days Past Due</button>
+    <br>
+    <input v-model="inputMinRealEstateValue"/>
+    <button @click="getMinRealEstate">Choose Minimum Number of Real Estate Lines or Loans</button>
+    <br>
+    <input v-model="inputMaxSixtyNinetyValue"/>
+    <button @click="getMaxSixtyNinety">Choose Maximum Number of Sixty to Ninety Days Past due</button>
+    <br>
+    <input v-model="inputMaxDependentsValue"/>
+    <button @click="getMaxDependents">Choose Maximum Number of Dependents</button>
 
 
    
@@ -47,6 +59,10 @@ export default {
       max_thirtysixty: [],
       max_debtratio: [],
       min_openlines: [],
+      max_ninety: [],
+      min_realestate: [],
+      max_sixtyninety: [],
+      max_dependents: [],
 
       eligible_applicants: [],
       
@@ -57,6 +73,10 @@ export default {
       inputThirtySixtyValue: '',
       inputDebtRatioValue: '',
       inputMinLinesValue: '',
+      inputOverNinetyValue: '',
+      inputMinRealEstateValue: '',
+      inputMaxSixtyNinetyValue: '',
+      inputMaxDependentsValue: '',
 
       
     }
@@ -96,14 +116,37 @@ export default {
 
     getMinLines() {
       this.min_openlines.push(this.inputMinLinesValue)
+      this.inputMinLinesValue = '';
+    },
+
+    getOverNinety() {
+      this.max_ninety.push(this.inputOverNinetyValue)
+      this.inputOverNinetyValue = '';
+    },
+
+    getMinRealEstate() {
+      this.min_realestate.push(this.inputMinRealEstateValue)
+      this.inputMinRealEstateValue = '';
+    },
+
+    getMaxSixtyNinety() {
+      this.max_sixtyninety.push(this.inputMaxSixtyNinetyValue)
+      this.inputMaxSixtyNinetyValue = '';
+    },
+
+    getMaxDependents() {
+      this.max_dependents.push(this.inputMaxDependentsValue)
        axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, revolving_item: this.max_revolving, 
-                                lessthansixty_item: this.max_thirtysixty, debtratio_item: this.max_debtratio, minlines_item: this.min_openlines })
+                                lessthansixty_item: this.max_thirtysixty, debtratio_item: this.max_debtratio, minlines_item: this.min_openlines,
+                                overninety_item: this.max_ninety, realestate_item: this.min_realestate, sixtyninety_item: this.max_sixtyninety,
+                                maxdependents_item: this.max_dependents })
         .then(() => {
           axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
         })
 
-      this.inputMinLinesValue = '';
+      this.inputMaxDependentsValue = '';
     },
+
 
 
 

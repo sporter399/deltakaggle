@@ -26,7 +26,7 @@ SELECT * FROM APPLICANTS
 c.close()
 d = conn.cursor()
 """
-code above is rather verbose!
+closing and reopening of curseor above was unwanted but necessary
 """
 eligible_applicants = []
 
@@ -35,7 +35,8 @@ def serve_user_vars():
     
     age_var = (request.json["age_item"])
     income_var = (request.json["income_item"])
-    d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ?", (age_var[0], age_var[1], income_var[0]))
+    revolving_var = (request.json["revolving_item"])
+    d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ? AND RevolvingUtilizationOfUnsecuredLines <=?", (age_var[0], age_var[1], income_var[0], revolving_var[0]))
     eligible_applicants.append(d.fetchall())
     
     

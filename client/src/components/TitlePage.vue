@@ -14,6 +14,9 @@
     <br>
     <input v-model="inputValueDelta"/>
     <button @click="getMinIncome">Choose Minimum Monthly Income</button>
+    <br>
+    <input v-model="inputValueGamma"/>
+    <button @click="getMaxRevolving">Choose Maximum Utilization of Credit</button>
 
    
   </div>
@@ -31,9 +34,12 @@ export default {
       age_range: [],
       min_income: [],
       eligible_applicants: [],
+      max_revolving: [],
       inputValue: '',
       inputValueBeta: '',
-      inputValueDelta: ''
+      inputValueDelta: '',
+      inputValueGamma: ''
+
       
     }
 
@@ -52,12 +58,17 @@ export default {
 
     getMinIncome() {
       this.min_income.push(this.inputValueDelta)
-       axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income })
+      this.inputValueDelta = '';
+    },
+
+    getMaxRevolving() {
+      this.max_revolving.push(this.inputValueGamma)
+       axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, revolving_item: this.max_revolving })
         .then(() => {
           axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
         })
 
-      this.inputValueDelta = '';
+      this.inputValueGamma = '';
     },
 
     

@@ -5,10 +5,7 @@ import csv
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from pandas import DataFrame
-import os
 import sqlite3
-
-
 
 array_api = Blueprint('array_api', __name__)
 
@@ -26,27 +23,21 @@ trainDF.to_sql('APPLICANTS', conn, if_exists='replace', index = False)
 c.execute('''  
 SELECT * FROM APPLICANTS
           ''')
-
 c.close()
 d = conn.cursor()
 """
 code above is rather verbose!
 """
-required_age = []
 eligible_applicants = []
 
-
-
-@array_api.route('/age_var', methods=['GET', 'POST'])
-def serve_age_var():
+@array_api.route('/user_vars', methods=['GET', 'POST'])
+def serve_user_vars():
     
     age_var = (request.json["age_item"])
-    
-    
     income_var = (request.json["income_item"])
     d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ?", (age_var[0], age_var[1], income_var[0]))
     eligible_applicants.append(d.fetchall())
-    print(eligible_applicants) 
+    
     
     return jsonify({"items": eligible_applicants })
 

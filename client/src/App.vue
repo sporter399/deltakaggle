@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <TitlePage title="This is DeltaKaggle"/>
+    <TitlePage title="Delta Bank Credit Applications"/>
   </div>
 </template>
 

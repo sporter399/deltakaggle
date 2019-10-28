@@ -32,31 +32,28 @@ d = conn.cursor()
 """
 code above is rather verbose!
 """
-
-
-sql_data = []
-
-
 required_age = []
+eligible_applicants = []
+
 
 
 @array_api.route('/age_var', methods=['GET', 'POST'])
 def serve_age_var():
-
-    var = (request.json["item"])
-    print(var)
-    """
-    var above is a list in a list and thus has one index and ints are strings
-    """
-    d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ?", var)
-    required_age.append(d.fetchall())
     
-    return jsonify({"items": required_age })
+    age_var = (request.json["age_item"])
+    
+    
+    income_var = (request.json["income_item"])
+    d.execute("SELECT * FROM APPLICANTS WHERE age BETWEEN ? AND ? AND MonthlyIncome >= ?", (age_var[0], age_var[1], income_var[0]))
+    eligible_applicants.append(d.fetchall())
+    print(eligible_applicants) 
+    
+    return jsonify({"items": eligible_applicants })
 
 @array_api.route('/applicants', methods=['GET'])
 def serve_all_applicants():
     
-    return jsonify({"items": required_age })
+    return jsonify({"items": eligible_applicants })
 
 
 

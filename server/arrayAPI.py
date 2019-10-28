@@ -55,14 +55,19 @@ def serve_user_vars():
                 AND NumberOfDependents<=?''', (age_var[0], age_var[1], income_var[0], revolving_var[0], lessthansixty_var[0], 
                 debtratio_var[0], minlines_var[0], overninety_var[0], realestate_var[0], sixtyninety_var[0], maxdependents_var[0]))
     eligible_applicants.append(d.fetchall())
-    
-    
+
+
+    print("Number of eligible applicants    "   + str(max(map(len, eligible_applicants))))
+    percent_accepted = (((max(map(len, eligible_applicants)))/(len(Applicants)) * 100))
+    print("Percent of applicants accepted:     " + "%.2f" % percent_accepted)
+
     return jsonify({"items": eligible_applicants })
 
 @array_api.route('/applicants', methods=['GET'])
 def serve_all_applicants():
     
     return jsonify({"items": eligible_applicants })
+
 
 
 

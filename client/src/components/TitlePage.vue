@@ -38,6 +38,8 @@
     <br>
     <input v-model="inputMaxDependentsValue"/>
     <button @click="getMaxDependents">Choose Maximum Number of Dependents</button>
+    <br>
+    <button @click="displayAccepted">Display Accepted Applicants with Percentage</button>
 
 
    
@@ -134,8 +136,13 @@ export default {
       this.inputMaxSixtyNinetyValue = '';
     },
 
+    
     getMaxDependents() {
       this.max_dependents.push(this.inputMaxDependentsValue)
+      this.inputMaxDependentsValue = '';
+    },
+
+    displayAccepted() {
        axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, revolving_item: this.max_revolving, 
                                 lessthansixty_item: this.max_thirtysixty, debtratio_item: this.max_debtratio, minlines_item: this.min_openlines,
                                 overninety_item: this.max_ninety, realestate_item: this.min_realestate, sixtyninety_item: this.max_sixtyninety,
@@ -144,17 +151,8 @@ export default {
           axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
         })
 
-      this.inputMaxDependentsValue = '';
+     
     },
-
-
-
-
-
-
-
-
-
   },
   
   mounted() {

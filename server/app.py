@@ -15,8 +15,6 @@ def create_app():
         template_folder = "./dist"
     )
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///{}".format(os.path.join(project_dir, "applicant-info.db"))
-    print("printline at 20 with path name:    "    +   "sqlite:///{}".format(os.path.join(project_dir, "applicant-info.db")))
-    print(vars(url.make_url("sqlite:///{}".format(os.path.join(project_dir, "applicant-info.db")))))
     app.config['SQLALCHEMY_ECHO'] = True
     db.init_app(app)
     app.register_blueprint(array_api)
@@ -26,11 +24,8 @@ def create_app():
 def setup_database(app):
 
     with app.app_context():
-        print("line in 28 in app")
+    
         db.create_all()
-        print("line 30 in app")
-            
-            
         engine = db.get_engine()
         trainDF = pd.read_csv('cs-test.csv')
 

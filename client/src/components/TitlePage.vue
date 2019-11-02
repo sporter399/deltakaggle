@@ -5,12 +5,9 @@
     <ul>
       <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
     </ul>
-    <!--
     <input v-model="inputMinAgeValue"/>
     <button @click="getMinAge">Choose Minimum Age</button>
     <br>
-    -->
-
     <input v-model="inputMaxAgeValue"/>
     <button @click="getMaxAge">Choose Maximum Age</button>
     
@@ -63,6 +60,7 @@ export default {
   methods: {
     getMinAge() {
       this.age_range.push(this.inputMinAgeValue)
+      this.inputMinAgeValue= '';
       
       
     },
@@ -73,7 +71,7 @@ export default {
         .then(() => {
           axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
         })
-
+      this.inputMaxAgeValue = '';
       
     },
   },

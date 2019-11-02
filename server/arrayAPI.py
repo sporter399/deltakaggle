@@ -17,18 +17,9 @@ eligible_applicants = []
 def serve_user_vars():
 
     entered_age = request.json["age_item"]
-    
-    
-    variable_instances = db.session.query(Variables).filter_by(age=entered_age[0]).all()
-    
-    
+    variable_instances = db.session.query(Variables).filter(Variables.age >= entered_age[0], Variables.age <= entered_age[1])
     eligible_applicants.append([{"age": variable.age} for variable in variable_instances])
     
-    print(eligible_applicants)
-    
-    
-
-
     return jsonify({"items": eligible_applicants })
 
 @array_api.route('/applicants', methods=['GET'])

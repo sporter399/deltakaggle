@@ -11,18 +11,22 @@
     <br>
     <input v-model="inputMinIncomeValue"/><label for="inputMinIncomeValue"> Enter Minimum Monthly Income</label>
     <br>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <input v-model="inputMaxUtilValue"/><label for="inputMaxUtilValue"> Enter Maximum Utilization of Revolving Credit</label>
+    <br>
+    <input v-model="inputThirtySixtyValue"/><label for="inputThirtySixtyValue"> Enter Maximum Number of 30 to 60 Day Deliquencies</label>
+    <br>
+    <input v-model="inputDebtRatioValue"/><label for="inputDebtRatioValue"> Enter Maximum Debt to Income Ratio</label>
+    <br>
+    <input v-model="inputMinLinesValue"/><label for="inputMinLinesValue"> Enter Minimum Number of Open Credit Lines</label>
+    <br>
+    <input v-model="inputNinetyValue"/><label for="inputNinetyValue"> Enter Maximum Number of Delinquencies over 90 Days</label>
+    <br>
+    <input v-model="inputMinRealEstateValue"/><label for="inputMinRealEstateValue"> Enter Minimum Number of Real Estate Loans or Lines</label>
+    <br>
+    <input v-model="inputMaxSixtyNinetyValue"/><label for="inputMaxSixtyNinetyValue"> Enter Maximum Number of 60 to 90 Day Delinquencies</label>
+    <br>
+    <input v-model="inputMaxDependentsValue"/><label for="inputMaxDependentsValue"> Enter Maximum Number of Dependents</label>
+    <br>
     
     <button @click="displayAccepted">Display Accepted Applicants</button>
     
@@ -76,7 +80,17 @@ export default {
       this.age_range.push(this.inputMinAgeValue)
       this.age_range.push(this.inputMaxAgeValue)
       this.min_income.push(this.inputMinIncomeValue)
-      axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income })
+      this.max_revolving.push(this.inputMaxUtilValue)
+      this.max_thirtysixty.push(this.inputThirtySixtyValue)
+      this.max_debtratio.push(this.inputDebtRatioValue)
+      this.min_openlines.push(this.inputMinLinesValue)
+      this.max_ninety.push(this.inputNinetyValue)
+      this.min_realestate.push(this.inputMinRealEstateValue)
+      this.max_sixtyninety.push(this.inputMaxSixtyNinetyValue)
+      this.max_dependents.push(this.inputMaxDependentsValue)
+      axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, util_item: this.max_revolving, thirtysixty_item: this.max_thirtysixty,
+                              debtratio_item: this.max_debtratio, minlines_item: this.min_openlines, ninety_item: this.max_ninety, 
+                              realestate_item: this.min_realestate, sixtyninety_item: this.max_sixtyninety, dependents_item: this.max_dependents})
       .then(() => {
         axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
         })

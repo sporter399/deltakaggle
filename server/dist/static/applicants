@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    
+    
+   
+  
+    
+    <ul>
+      <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
+    </ul>
+
+    
+
+
+    
+
+{% endblock %}

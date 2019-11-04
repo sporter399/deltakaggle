@@ -5,12 +5,26 @@
     <ul>
       <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
     </ul>
-    <input v-model="inputMinAgeValue"/>
-    <button @click="getMinAge">Choose Minimum Age</button>
+    <input v-model="inputMinAgeValue"/><label for="inputMinAgeValue"> Enter Minimum Age</label>
     <br>
-    <input v-model="inputMaxAgeValue"/>
-    <button @click="getMaxAge">Choose Maximum Age</button>
+    <input v-model="inputMaxAgeValue"/><label for="inputMaxAgeValue"> Enter Maximum Age</label>
+    <br>
+    <input v-model="inputMinIncomeValue"/><label for="inputMinIncomeValue"> Enter Minimum Monthly Income</label>
+    <br>
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <button @click="displayAccepted">Display Accepted Applicants</button>
     
 
 
@@ -58,21 +72,16 @@ export default {
 
   },
   methods: {
-    getMinAge() {
+    displayAccepted() {
       this.age_range.push(this.inputMinAgeValue)
-      this.inputMinAgeValue= '';
-      
-      
-    },
-
-    getMaxAge() {
       this.age_range.push(this.inputMaxAgeValue)
-      axios.post('user_vars', { age_item: this.age_range })
-        .then(() => {
-          axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
+      this.min_income.push(this.inputMinIncomeValue)
+      axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income })
+      .then(() => {
+        axios.get('/applicants').then( res => this.eligible_applicants = res.data.items);
         })
-      this.inputMaxAgeValue = '';
       
+     
     },
   },
   

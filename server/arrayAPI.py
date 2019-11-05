@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request
 import pandas as pd
 import numpy as np
 import csv
@@ -34,7 +34,7 @@ def serve_user_vars():
                             Variables.NumberOfDependents <= entered_dependents[0])
     eligible_applicants.append([{"age": variable.age, "MonthlyIncome": variable.MonthlyIncome} for variable in variable_instances])
     
-    return jsonify({"items": eligible_applicants })
+    return jsonify({"items": eligible_applicants})
 
 @array_api.route('/applicants', methods=['GET', 'POST'])
 def serve_all_applicants():
@@ -42,5 +42,7 @@ def serve_all_applicants():
     
     
     return jsonify({"items": eligible_applicants})
+
+
 
     

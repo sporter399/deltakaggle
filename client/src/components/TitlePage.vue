@@ -65,7 +65,7 @@ export default {
       inputThirtySixtyValue: '',
       inputDebtRatioValue: '',
       inputMinLinesValue: '',
-      inputOverNinetyValue: '',
+      inputNinetyValue: '',
       inputMinRealEstateValue: '',
       inputMaxSixtyNinetyValue: '',
       inputMaxDependentsValue: '',

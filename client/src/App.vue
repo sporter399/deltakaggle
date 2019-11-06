@@ -6,15 +6,17 @@
     </div>
     <Welcome v-if="!showInputFields" />
     <UserVars v-if="showInputFields" @dataEntered='dataEntered' title="Delta Bank Credit Applications"/>
-    
     <DisplayAccepted v-if="allDataEntered" />
+    
   </div>
 </template>
 
 <script>
+
 import UserVars from './components/UserVars.vue'
 import Welcome from './components/Welcome.vue'
 import DisplayAccepted from './components/DisplayAccepted.vue'
+
 
 
 export default {
@@ -23,6 +25,7 @@ export default {
     UserVars,
     Welcome,
     DisplayAccepted
+    
   },
 
   data() {
@@ -31,6 +34,7 @@ export default {
       allDataEntered: false,
       buttonText: "Show Fields for Input of Variables",
       fromUserVars: '',
+      eligible_applicants: [],
 
     }
   },
@@ -45,9 +49,10 @@ methods: {
         this.buttonText =  'Show Fields for Input of Variables'
       }
     },
-   dataEntered (value) {
+     dataEntered (value) {
      this.allDataEntered = value
    }
+   
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ title }}</h1>
-    
+
     
     <input v-model="inputMinAgeValue"/><label for="inputMinAgeValue"> Enter Minimum Age</label>
     <br>
@@ -34,10 +34,11 @@
 import axios from 'axios';
 
 
+
 export default {
   name: "UserVars",
-  
   props: ['title'],
+
   data () {
     return {
       allDataEntered: true,
@@ -89,6 +90,7 @@ export default {
       axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, util_item: this.max_revolving, thirtysixty_item: this.max_thirtysixty,
                               debtratio_item: this.max_debtratio, minlines_item: this.min_openlines, ninety_item: this.max_ninety, 
                               realestate_item: this.min_realestate, sixtyninety_item: this.max_sixtyninety, dependents_item: this.max_dependents})
+     
       },
     
       dataEntered () {
@@ -99,6 +101,7 @@ export default {
   
   
   mounted() {
+    
    
     }
   }

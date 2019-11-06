@@ -40,7 +40,9 @@ def serve_user_vars():
 @array_api.route('/accepted_applicants', methods=['GET', 'POST'])
 def serve_all_accepted():
 
-    
+    print("")
+    print("ACCEPTED APPLICANTS LINE 44")
+    print("")
     
     return jsonify({"items": eligible_applicants})
 

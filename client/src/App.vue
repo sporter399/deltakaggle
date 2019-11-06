@@ -7,11 +7,6 @@
     <Welcome v-if="!showInputFields" />
     <UserVars v-if="showInputFields" @dataEntered='dataEntered' title="Delta Bank Credit Applications"/>
     
-
-
-
-
-
     <DisplayAccepted v-if="allDataEntered" />
 
 
@@ -74,7 +69,5 @@ methods: {
   color: #2c3e50;
   margin-top: 60px;
 }
-.nav-bar-elem {
-  margin: 0 10px;
-}
+
 </style>

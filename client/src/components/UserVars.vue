@@ -28,7 +28,7 @@
     <input v-model="inputMaxDependentsValue"/><label for="inputMaxDependentsValue"> Enter Maximum Number of Dependents</label>
     <br>
     
-    <button v-on:click="displayAccepted(); dataEntered();">Display Accepted</button>
+    <button v-on:click="enterAccepted(); dataEntered();">Display Accepted</button>
     
     
 
@@ -80,7 +80,7 @@ export default {
 
   },
   methods: {
-    displayAccepted() {
+    enterAccepted() {
       
       this.age_range.push(this.inputMinAgeValue)
       this.age_range.push(this.inputMaxAgeValue)

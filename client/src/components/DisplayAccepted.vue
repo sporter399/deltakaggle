@@ -14,11 +14,9 @@ import axios from 'axios';
 
 export default {
     name: 'DisplayAccepted',
-   
-
+    
     data () {
         return {
-            
             eligible_applicants: []
 
         }

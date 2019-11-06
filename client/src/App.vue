@@ -8,14 +8,6 @@
     <UserVars v-if="showInputFields" @dataEntered='dataEntered' title="Delta Bank Credit Applications"/>
     
     <DisplayAccepted v-if="allDataEntered" />
-
-
-      <!--  That parent reference in the your word document is reference to a state, that
-      state I think can be referenced above to accdss DisplayAccepted. The child has to tell
-      the parent that the state has changed. UserVars has to tell App of change of state.
-      Don't forget that display of data, the axios get request, should going forward take place
-      in Display Accepted and not in UserVars. UserVars should post and post only. -->
-    
   </div>
 </template>
 

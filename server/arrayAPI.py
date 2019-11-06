@@ -46,13 +46,7 @@ def serve_all_accepted():
     
     return jsonify({"items": eligible_applicants})
 
-@array_api.route('/applicants', methods=['GET', 'POST'])
-def serve_all_applicants():
 
-    all_instances = db.session.query(Variables).filter_by(id=id).all()
-    print("all_instances line 51    " + all_instances)
-    
-    return jsonify({"items": all_applicants})
 
 
 

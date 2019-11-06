@@ -2,9 +2,7 @@
   <div class="hello">
     <h1>{{ title }}</h1>
     
-    <ul>
-      <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
-    </ul>
+    
     <input v-model="inputMinAgeValue"/><label for="inputMinAgeValue"> Enter Minimum Age</label>
     <br>
     <input v-model="inputMaxAgeValue"/><label for="inputMaxAgeValue"> Enter Maximum Age</label>
@@ -29,12 +27,7 @@
     <br>
     
     <button v-on:click="enterAccepted(); dataEntered();">Display Accepted</button>
-    
-    
-
-
-   
-  </div>
+    </div>
 </template>
 
 <script>

@@ -11,6 +11,7 @@ from sql_alchemy_db_instance import db
 
 array_api = Blueprint('array_api', __name__)
 
+all_applicants = []
 eligible_applicants = []
 
 @array_api.route('/user_vars', methods=['GET', 'POST'])
@@ -36,12 +37,20 @@ def serve_user_vars():
     
     return jsonify({"items": eligible_applicants})
 
-@array_api.route('/applicants', methods=['GET', 'POST'])
-def serve_all_applicants():
+@array_api.route('/accepted_applicants', methods=['GET', 'POST'])
+def serve_all_accepted():
 
     
     
     return jsonify({"items": eligible_applicants})
+
+@array_api.route('/applicants', methods=['GET', 'POST'])
+def serve_all_applicants():
+
+    all_instances = db.session.query(Variables).filter_by(id=id).all()
+    print("all_instances line 51    " + all_instances)
+    
+    return jsonify({"items": all_applicants})
 
 
 

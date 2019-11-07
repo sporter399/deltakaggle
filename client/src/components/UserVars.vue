@@ -100,7 +100,8 @@ export default {
   },
   
   
-  mounted() {
+  beforeMount() {
+    this.displayData();
     
    
     }

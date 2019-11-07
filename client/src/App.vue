@@ -6,7 +6,7 @@
     </div>
     <Welcome v-if="!showInputFields" />
     <UserVars v-if="showInputFields" @dataEntered='dataEntered' title="Delta Bank Credit Applications"/>
-    <DisplayAccepted v-if="allDataEntered" />
+    <DisplayAccepted v-if="allDataEntered" onload="displayData();"/>
     
   </div>
 </template>

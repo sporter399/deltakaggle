@@ -1,8 +1,6 @@
 <template>
     <div class="accepted">
     <p>Accepted</p>
-   
-    
     
     <ul>
       <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
@@ -17,23 +15,27 @@ import axios from 'axios';
 
 export default {
     name: 'DisplayAccepted',
-
+    
     data () {
         return {
-            eligible_applicants: []
-    }
+            eligible_applicants: [],
+            
+        }  
     },
-
     methods: {
-        displayData:function() {
+        displayData() {
             axios.get('/accepted_applicants')
                 .then((resp) => {
                     this.eligible_applicants = resp.data.items;
     })
      }
     },
-    mounted() {
-        this.displayData();
+    
+    mounted: function () {
+        this.$nextTick(function () {
+            this.displayData();
+        })
+        
     
     }
 }

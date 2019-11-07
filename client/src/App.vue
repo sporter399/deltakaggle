@@ -4,9 +4,10 @@
     <div>
       <button @click="handleNavClick">{{buttonText}}</button>
     </div>
-    <Welcome v-if="!showInputFields" />
-    <UserVars v-if="showInputFields" @dataEntered='dataEntered' title="Delta Bank Credit Applications"/>
-    <DisplayAccepted v-if="allDataEntered" onload="displayData();"/>
+    
+    <Welcome v-if="!showInputFields && !allDataEntered" />
+    <UserVars v-if="showInputFields && !allDataEntered" @dataEntered='dataEntered' title="Delta Bank Credit Applications"/>
+    <DisplayAccepted v-if="!showInputFields && allDataEntered" @dataEntered='dataEntered' />
     
   </div>
 </template>
@@ -32,9 +33,11 @@ export default {
     return {
       showInputFields: false,
       allDataEntered: false,
+     
       buttonText: "Show Fields for Input of Variables",
       fromUserVars: '',
       eligible_applicants: [],
+      
 
     }
   },
@@ -51,7 +54,10 @@ methods: {
     },
      dataEntered (value) {
      this.allDataEntered = value
+     this.showInputFields = value
+     
    }
+     
    
   }
 }

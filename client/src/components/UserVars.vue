@@ -26,7 +26,7 @@
     <input v-model="inputMaxDependentsValue"/><label for="inputMaxDependentsValue"> Enter Maximum Number of Dependents</label>
     <br>
     
-    <button v-on:click="enterAccepted(); dataEntered();">Display Accepted</button>
+    <button v-on:click="enterAccepted(); dataEntered();">Submit Variables to Accept Applications</button>
     </div>
 </template>
 
@@ -42,6 +42,8 @@ export default {
   data () {
     return {
       allDataEntered: true,
+      showInputFields: false,
+      
 
       age_range: [],
       min_income: [],
@@ -90,23 +92,21 @@ export default {
       axios.post('user_vars', { age_item: this.age_range, income_item: this.min_income, util_item: this.max_revolving, thirtysixty_item: this.max_thirtysixty,
                               debtratio_item: this.max_debtratio, minlines_item: this.min_openlines, ninety_item: this.max_ninety, 
                               realestate_item: this.min_realestate, sixtyninety_item: this.max_sixtyninety, dependents_item: this.max_dependents})
-     
-      },
-    
+                  
+    },
       dataEntered () {
         this.$emit('dataEntered', this.allDataEntered)
-    }
+        this.$emit('dataEntered', this.showInputFields)
+        
+    },
     
-  },
   
-  
-  beforeMount() {
-    this.displayData();
+  mounted() {
     
-   
-    }
   }
-
+  
+  }
+}
 </script>
 
 

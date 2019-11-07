@@ -42,9 +42,7 @@ export default {
   data () {
     return {
       allDataEntered: true,
-      showInputFields: false,
       
-
       age_range: [],
       min_income: [],
       max_revolving: [],
@@ -69,12 +67,8 @@ export default {
       inputMinRealEstateValue: '',
       inputMaxSixtyNinetyValue: '',
       inputMaxDependentsValue: '',
-
-      
-    }
-
-
-  },
+      }
+},
   methods: {
     enterAccepted() {
       
@@ -96,11 +90,8 @@ export default {
     },
       dataEntered () {
         this.$emit('dataEntered', this.allDataEntered)
-        this.$emit('dataEntered', this.showInputFields)
         
     },
-    
-  
   mounted() {
     
   }

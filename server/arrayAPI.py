@@ -11,7 +11,6 @@ from sql_alchemy_db_instance import db
 
 array_api = Blueprint('array_api', __name__)
 
-all_applicants = []
 eligible_applicants = []
 
 @array_api.route('/user_vars', methods=['GET', 'POST'])
@@ -40,10 +39,6 @@ def serve_user_vars():
 @array_api.route('/accepted_applicants', methods=['GET', 'POST'])
 def serve_all_accepted():
 
-    print("")
-    print("ACCEPTED APPLICANTS LINE 44")
-    print("")
-    
     return jsonify({"items": eligible_applicants})
 
 

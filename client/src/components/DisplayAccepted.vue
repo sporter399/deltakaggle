@@ -19,7 +19,6 @@ export default {
     data () {
         return {
             eligible_applicants: [],
-            
         }  
     },
     methods: {
@@ -35,8 +34,6 @@ export default {
         this.$nextTick(function () {
             this.displayData();
         })
-        
-    
     }
 }
 

@@ -23,25 +23,6 @@ def create_app():
 
     return app
 
-def setup_database(app):
-    with app.app_context():
-        db.create_all()
-
-    app.config['SQLALCHEMY_ECHO'] = True
-    db.init_app(app)
-    app.register_blueprint(array_api)
-
-    return app
-
-def setup_database(app):
-    with app.app_context():
-        db.create_all()
-
-    app.config['SQLALCHEMY_ECHO'] = True
-    db.init_app(app)
-    app.register_blueprint(array_api)
-
-    return app
 
 def setup_database(app):
 
@@ -53,7 +34,7 @@ def setup_database(app):
 
             
         if  trainDF is not None:
-            print("true line 32")
+            return
         else:
             trainDF.to_sql('APPLICANTS', con=engine, index_label='id', if_exists='replace')
 

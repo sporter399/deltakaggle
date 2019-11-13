@@ -1,9 +1,9 @@
 <template>
-  <div class="hello">
+  <div class="boxes">
     <h1>{{ title }}</h1>
 
     
-    <input v-model="inputMinAgeValue"/><label for="inputMinAgeValue"> Enter Minimum Age</label>
+    <input v-model="inputMinAgeValue" id="inputMinAgeValue" /><label for="inputMinAgeValue"> Enter Minimum Age</label>
     <br>
     <input v-model="inputMaxAgeValue"/><label for="inputMaxAgeValue"> Enter Maximum Age</label>
     <br>
@@ -99,5 +99,23 @@ export default {
   }
 }
 </script>
+<style>
+.boxes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  margin: 10% 0;
+  min-height: 200px;
+  background-color: rgba(33, 33, 33, .3);
+  align-items: center;
+}
+
+.boxes :first-child {
+    align-self: center;
+}
+</style>
 
 

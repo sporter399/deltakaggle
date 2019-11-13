@@ -1,6 +1,6 @@
 from flask import render_template
 from app import create_app, setup_database
-import psycopg2
+
 
 def add_vue_routes(app):
     @app.route('/')

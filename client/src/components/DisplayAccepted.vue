@@ -5,6 +5,12 @@
     <ul>
       <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
     </ul>
+    
+    <ul>
+      <li v-for="stats in statistics" v-bind:key="stats">{{ stats }}</li>
+    </ul>
+    
+    
     <button v-on:click="displayData();">Display Accepted</button>
     
     </div>
@@ -19,16 +25,24 @@ export default {
     data () {
         return {
             eligible_applicants: [],
+            statistics: []
         }  
     },
     methods: {
         displayData() {
             axios.get('/accepted_applicants')
+                    .then((resp) => {
+                        this.eligible_applicants = resp.data.items;
+        }),
+            axios.get('/applicants_stats')
                 .then((resp) => {
-                    this.eligible_applicants = resp.data.items;
+                    this.statistics = resp.data.stats;
     })
+
+
      }
-    },
+     },
+    
     
     mounted: function () {
         this.$nextTick(function () {

@@ -106,7 +106,7 @@ export default {
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  text-align: center;
+  text-align: right;
   margin: 10% 0;
   min-height: 200px;
   background-color: rgba(33, 33, 33, .3);

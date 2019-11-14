@@ -8,10 +8,12 @@ from pandas import DataFrame
 import sqlite3
 from models import Variables
 from sql_alchemy_db_instance import db
+import json
 
 array_api = Blueprint('array_api', __name__)
 
 eligible_applicants = []
+statistics = []
 
 @array_api.route('/user_vars', methods=['GET', 'POST'])
 def serve_user_vars():
@@ -33,13 +35,28 @@ def serve_user_vars():
                             Variables.NumberRealEstateLoansOrLines >= entered_realestate[0], Variables.NumberOfTime60to89DaysPastDueNotWorse <= entered_sixtyninety[0],
                             Variables.NumberOfDependents <= entered_dependents[0])
     eligible_applicants.append([{"age": variable.age, "MonthlyIncome": variable.MonthlyIncome} for variable in variable_instances])
-    
-    return jsonify({"items": eligible_applicants})
+    statistics.append({"stat": 45 })
+
+    return jsonify({"items": eligible_applicants}, {"stats": statistics})
 
 @array_api.route('/accepted_applicants', methods=['GET', 'POST'])
 def serve_all_accepted():
 
+    """
+    this IS showing in the URL, with both stats and items but is not in browswer
+    like items alone does. SOmething tells me it's in the get requiest in DisplayAccepted.vue
+    have a look at what it takes to retrieve two data items in one get request
+    """
+    
+
     return jsonify({"items": eligible_applicants})
+
+@array_api.route('/applicants_stats', methods=['GET', 'POST'])
+def serve_statistics():
+
+    return jsonify({"stats": statistics })
+
+
 
 
 

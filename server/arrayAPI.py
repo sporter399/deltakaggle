@@ -35,19 +35,25 @@ def serve_user_vars():
                             Variables.NumberRealEstateLoansOrLines >= entered_realestate[0], Variables.NumberOfTime60to89DaysPastDueNotWorse <= entered_sixtyninety[0],
                             Variables.NumberOfDependents <= entered_dependents[0])
     eligible_applicants.append([{"age": variable.age, "MonthlyIncome": variable.MonthlyIncome} for variable in variable_instances])
-    statistics.append({"stat": 45 })
+    calculate_statistics()
 
-    return jsonify({"items": eligible_applicants}, {"stats": statistics})
+    return jsonify({"items": eligible_applicants})
+
+@array_api.route('/calculate_statistics', methods=['GET', 'POST'])
+def calculate_statistics():
+
+    numberOfApps = db.session.query(Variables).count()
+    percent_accepted = (((max(map(len, eligible_applicants)))/(numberOfApps) * 100))
+    statistics.append("%.2f" % percent_accepted)
+    
+    
+    return jsonify({"stats": statistics})
+
 
 @array_api.route('/accepted_applicants', methods=['GET', 'POST'])
 def serve_all_accepted():
 
-    """
-    this IS showing in the URL, with both stats and items but is not in browswer
-    like items alone does. SOmething tells me it's in the get requiest in DisplayAccepted.vue
-    have a look at what it takes to retrieve two data items in one get request
-    """
-    
+   
 
     return jsonify({"items": eligible_applicants})
 

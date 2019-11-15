@@ -9,6 +9,10 @@ import sqlite3
 from models import Variables
 from sql_alchemy_db_instance import db
 import json
+from sqlalchemy.sql import func, label
+from sqlalchemy.sql.expression import cast
+import sqlalchemy
+
 
 array_api = Blueprint('array_api', __name__)
 
@@ -34,17 +38,36 @@ def serve_user_vars():
                             Variables.NumberOfOpenCreditLinesAndLoans >= entered_minopenlines[0], Variables.NumberOfTimes90DaysLate <= entered_ninety[0],
                             Variables.NumberRealEstateLoansOrLines >= entered_realestate[0], Variables.NumberOfTime60to89DaysPastDueNotWorse <= entered_sixtyninety[0],
                             Variables.NumberOfDependents <= entered_dependents[0])
-    eligible_applicants.append([{"age": variable.age, "MonthlyIncome": variable.MonthlyIncome} for variable in variable_instances])
-    calculate_statistics()
+    
+    eligible_applicants.append([variable.id for variable in variable_instances])
+    calculate_statistics(variable_instances)
 
     return jsonify({"items": eligible_applicants})
 
 @array_api.route('/calculate_statistics', methods=['GET', 'POST'])
-def calculate_statistics():
+def calculate_statistics(variable_instances):
 
-    numberOfApps = db.session.query(Variables).count()
-    percent_accepted = (((max(map(len, eligible_applicants)))/(numberOfApps) * 100))
+    total_age = []
+    
+   
+    
+    number_of_apps = db.session.query(Variables).count()
+    percent_accepted = (((max(map(len, eligible_applicants)))/(number_of_apps) * 100))
     statistics.append("%.2f" % percent_accepted)
+
+
+     
+    
+    for variable in variable_instances:
+        total_age.append(variable.age)
+
+
+    average_age = sum(total_age)/len(total_age)
+    statistics.append("%.2f" % average_age)
+
+
+    
+    
     
     
     return jsonify({"stats": statistics})

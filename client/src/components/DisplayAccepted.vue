@@ -1,12 +1,13 @@
 <template>
     <div class="accepted">
     <p>Accepted</p>
-    
     <ul>
+      <p>Eligible Applicants by ID</p>
       <li v-for="items in eligible_applicants" v-bind:key="items">{{ items }}</li>
     </ul>
     
     <ul>
+      <p>Eligible Applicants Statistics</p>
       <li v-for="stats in statistics" v-bind:key="stats">{{ stats }}</li>
     </ul>
     

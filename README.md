@@ -1,10 +1,7 @@
 DeltaKaggle Credit Applications
 
 This web application is intended for a financial institution to facilitate the acceptance or denial of applications for credit. 
-From a kaggle.com competition, now closed, it selects for acceptance from a data set comprised of over 100K individual 
-consumer financial reports, based on the variable ranges chosen by the user. No names are included in the data set, 
-it is instead comprised of basic aspects of personal credit history. The results are returned to the user of application with numeric
-ID's for each accepted applicant, as well as statisitics related to the overall set of the accepted applications. 
+The front end user chooses numeric ranges within a number of variables dictated by a data set with over 100K credit applications. No names are included in the data set(acquired from a kaggle.com competition, now closed). The dataset is instead comprised of basic aspects of personal credit histories(info on delinquencies) and financial circumstances(age, income levels, and number of dependents). The results are returned to the user of the application with numeric ID's for each accepted applicant, as well as statisitics related to the overall set of the accepted applications. 
 
 Getting Started
 

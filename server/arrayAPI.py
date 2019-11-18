@@ -8,10 +8,7 @@ from pandas import DataFrame
 import sqlite3
 from models import Variables
 from sql_alchemy_db_instance import db
-import json
-from sqlalchemy.sql import func, label
-from sqlalchemy.sql.expression import cast
-import sqlalchemy
+
 
 
 array_api = Blueprint('array_api', __name__)
@@ -48,28 +45,53 @@ def serve_user_vars():
 def calculate_statistics(variable_instances):
 
     total_age = []
-    
-   
-    
+    total_income = []
+    total_revolveutil = []
+    total_thirtysixty = []
+    total_debttoincome = []
+    total_opencreditlines = []
+    total_overninety = []
+    total_sixtyninety = []
+    total_realestate = []
+    total_dependents = []
+
     number_of_apps = db.session.query(Variables).count()
     percent_accepted = (((max(map(len, eligible_applicants)))/(number_of_apps) * 100))
-    statistics.append("%.2f" % percent_accepted)
+    statistics.append({"Percentage accepted: " : "%.2f" % percent_accepted})
 
-
-     
-    
     for variable in variable_instances:
         total_age.append(variable.age)
-
+        total_income.append(variable.MonthlyIncome)
+        total_revolveutil.append(variable.RevolvingUtilizationOfUnsecuredLines)
+        total_thirtysixty.append(variable.NumberOfTime30to59DaysPastDueNotWorse)
+        total_debttoincome.append(variable.DebtRatio)
+        total_opencreditlines.append(variable.NumberOfOpenCreditLinesAndLoans)
+        total_overninety.append(variable.NumberOfTimes90DaysLate)
+        total_realestate.append(variable.NumberRealEstateLoansOrLines)
+        total_sixtyninety.append(variable.NumberOfTime60to89DaysPastDueNotWorse)
+        total_dependents.append(variable.NumberOfDependents)
 
     average_age = sum(total_age)/len(total_age)
-    statistics.append("%.2f" % average_age)
+    statistics.append({"Average age of accepted: " : "%.2f" % average_age})
+    average_income = sum(total_income)/len(total_income)
+    statistics.append({"Average monthly income of accepted: " : "%.2f" % average_income})
+    average_revolveutil = sum(total_revolveutil)/len(total_revolveutil)
+    statistics.append({"Average revolving utilization of unsecured credit of accepted: " : "%.2f" % average_revolveutil})
+    average_thirtysixty = sum(total_thirtysixty)/len(total_thirtysixty)
+    statistics.append({"Average number of thirty to sixty day delinquencies of accepted: " : "%.2f" % average_thirtysixty})
+    average_debttoincome = sum(total_debttoincome)/len(total_debttoincome)
+    statistics.append({"Average debt to income ratio of accepted: " : "%.2f" % average_debttoincome})
+    average_opencreditlines = sum(total_opencreditlines)/len(total_opencreditlines)
+    statistics.append({"Average number of open credit lines of accepted: " : "%.2f" % average_opencreditlines})
+    average_overninety = sum(total_overninety)/len(total_overninety)
+    statistics.append({"Average number of delinquencies over ninety days of accepted" : "%.2f" % average_overninety})
+    average_realestate = sum(total_realestate)/len(total_realestate)
+    statistics.append({"Average number of real estate loans or lines of accepted: " : "%.2f" % average_realestate})
+    average_sixtyninety = sum(total_sixtyninety)/len(total_sixtyninety)
+    statistics.append({"Average number of sixty to ninety day delinquencies of accepted: " : "%.2f" % average_sixtyninety})
+    average_dependents = sum(total_dependents)/len(total_dependents)
+    statistics.append({"Average number of dependents of accepted: " : "%.2f" % average_dependents})
 
-
-    
-    
-    
-    
     return jsonify({"stats": statistics})
 
 

@@ -15,7 +15,7 @@ In the server directory, run the following scripts
 'pipenv install pandas'
 
 In the client directory, run the following scripts
-'npm intall'
+'npm install'
 'npm run build'
 
 Create a .env file with the following information --> NOTE: the file should literally be titled '.env'
@@ -44,6 +44,9 @@ Built with:
 Python Flask
 Vue.js
 MySql
+
+Author
+Steve Porter
 
 License
 This project is licensed under the MIT License - see the LICENSE.md file for details

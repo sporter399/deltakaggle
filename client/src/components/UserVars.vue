@@ -89,6 +89,7 @@ export default {
                   
     },
       dataEntered () {
+        console.log("alldataentered line 92   "  + this.allDataEntered)
         this.$emit('dataEntered', this.allDataEntered)
         
     },

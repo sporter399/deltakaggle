@@ -39,11 +39,12 @@ def serve_user_vars():
                             Variables.NumberOfDependents <= entered_dependents[0])
     
     eligible_applicants.append([variable.id for variable in variable_instances])
+
     calculate_statistics(entered_age, entered_income, entered_util, 
                         entered_thirtysixty, entered_debtratio, entered_minopenlines,
                         entered_ninety, entered_realestate, entered_sixtyninety,
                         entered_dependents)
-
+    
     return jsonify({"items": eligible_applicants})
 
 @array_api.route('/calculate_statistics', methods=['GET', 'POST'])

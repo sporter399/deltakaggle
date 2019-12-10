@@ -5,9 +5,16 @@
       <button @click="handleNavClick">{{buttonText}}</button>
     </div>
     
-    <Welcome v-if="!showInputFields" />
-    <UserVars v-if="showInputFields" @dataEntered='dataEntered' title="Delta Bank Credit Applications"/>
-    <DisplayAccepted v-if="allDataEntered" />
+    <div v-if="!showInputFields" >
+      <Welcome />
+    </div>
+    <div v-else-if= "allDataEntered" >
+      <DisplayAccepted  />
+    </div>
+    <div v-else >
+
+      <UserVars v-on: dataEntered="dataEntered" title="Delta Bank Credit Applications"/>
+    </div>
     
   </div>
 </template>
@@ -49,6 +56,7 @@ methods: {
       }
     },
      dataEntered (value) {
+     console.log("alldataentered in parent    "   + this.allDataEntered)
      this.allDataEntered = value
     }
   }

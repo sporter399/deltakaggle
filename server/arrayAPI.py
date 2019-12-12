@@ -10,7 +10,9 @@ from models import Variables
 from sql_alchemy_db_instance import db
 from sqlalchemy.sql import func
 
-
+"""
+app does not clear accepted applicants at refresh of browser
+"""
 
 array_api = Blueprint('array_api', __name__)
 
@@ -38,9 +40,23 @@ def serve_user_vars():
                             Variables.NumberRealEstateLoansOrLines >= entered_realestate[0], Variables.NumberOfTime60to89DaysPastDueNotWorse <= entered_sixtyninety[0],
                             Variables.NumberOfDependents <= entered_dependents[0])
     
-    eligible_applicants.append([variable.id for variable in variable_instances])
+    if not eligible_applicants:
 
-    calculate_statistics(entered_age, entered_income, entered_util, 
+        eligible_applicants.append([variable.id for variable in variable_instances])
+
+    else:
+        eligible_applicants.clear()
+        eligible_applicants.append([variable.id for variable in variable_instances])
+
+    if not statistics:
+
+        calculate_statistics(entered_age, entered_income, entered_util, 
+                        entered_thirtysixty, entered_debtratio, entered_minopenlines,
+                        entered_ninety, entered_realestate, entered_sixtyninety,
+                        entered_dependents)
+    else:
+        statistics.clear()
+        calculate_statistics(entered_age, entered_income, entered_util, 
                         entered_thirtysixty, entered_debtratio, entered_minopenlines,
                         entered_ninety, entered_realestate, entered_sixtyninety,
                         entered_dependents)

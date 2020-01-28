@@ -19,8 +19,11 @@ array_api = Blueprint('array_api', __name__)
 eligible_applicants = []
 statistics = []
 
+
 @array_api.route('/user_vars', methods=['GET', 'POST'])
 def serve_user_vars():
+
+    
 
     entered_age = request.json["age_item"]
     entered_income = request.json["income_item"]
@@ -43,7 +46,7 @@ def serve_user_vars():
     if not eligible_applicants:
 
         eligible_applicants.append([variable.id for variable in variable_instances])
-
+        
     else:
         eligible_applicants.clear()
         eligible_applicants.append([variable.id for variable in variable_instances])
@@ -69,6 +72,7 @@ def calculate_statistics(entered_age, entered_income, entered_util,
                         entered_ninety, entered_realestate,
                         entered_sixtyninety, entered_dependents):
 
+    
     number_of_apps = db.session.query(Variables).count()
     percent_accepted = (((max(map(len, eligible_applicants)))/(number_of_apps) * 100))
     statistics.append({"Percentage accepted: " : "%.2f" % percent_accepted})

@@ -34,6 +34,7 @@ export default {
             axios.get('/accepted_applicants')
                     .then((resp) => {
                         this.eligible_applicants = resp.data.items;
+                        console.log("appllicant length    " + this.eligible_applicants.length)
         }),
             axios.get('/applicants_stats')
                 .then((resp) => {

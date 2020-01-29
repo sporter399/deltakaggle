@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 flask = "*"
 pandas = "*"
-flask-alchemy = "*"
+Flask-SQLAlchemy = "*"
 sqlalchemy = "*"
 requests = "*"
 psycopg2-binary = "*"

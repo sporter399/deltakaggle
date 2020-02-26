@@ -3,49 +3,45 @@
 This web application is intended for a financial institution to facilitate the acceptance or denial of applications for credit. 
 The front end user chooses numeric ranges within a number of variables dictated by a data set with over 100K credit applications. No names are included in the data set(acquired from a kaggle.com competition, now closed). The dataset is instead comprised of basic aspects of personal credit histories(info on delinquencies) and financial circumstances(age, income levels, and number of dependents). The results are returned to the user of the application with numeric ID's for each accepted applicant, as well as statistics related to the overall set of the accepted applications. 
 
-Getting Started
+## Getting Started
 
 Fork the github repo
 
-In the server directory, run the following scripts
-'pipenv install'
-'pipenv install pandas'
+*.Clone the github repo
+*.In the server directory, run:
+   pipenv install
+*.In the client directory, run:
+   npm install
+   npm run build
+*.Create a .env file in the project root with the following information:
 
-In the client directory, run the following scripts
-'npm install'
-'npm run build'
+APP_ID=deltakaggle
+APP_SECRET=deltakaggle_secret
+DB_URL=db_url
+DB_NAME=db_name
+DB_USER=db_username
+DB_PASS=db_password
+RUN_ENVIRONMENT=local
 
-Create a .env file with the following information --> NOTE: the file should literally be titled '.env'
+*.Serve the application from /server with pipenv run python main.py
+*.Deltakaggle web interface will be available at https://localhost:5000/
 
-The information in this file with facilitate configuration for the DB instance
+## Prerequisites
 
-APP_ID = 'insert your data'
-APP_SECRET = 'insert your data'
-DB_LOCATION = 'insert your data'
-DB_USERNAME = 'insert your data'
-DB_PASS = 'insert your data'
-CALLBACK_URL = 'insert your data'
+*.Node (>9.8.0)
+*.Web-browser (Chrome preferred, limited testing on alternative browsers)
 
-To run the program on your local host(https://localhost:5000/) switch back to server directory and run
+## Built with:
 
-'pipenv run python main.py'
+*.Python Flask
+*.Vue.js
+*.SQLite / PostgreSQL
 
-Prerequisites
-What things you need to install the software and how to install them
+## Author
 
-Node (>9.8.0)
-Web-browser (Chrome preferred, limited testing on alternative browsers)
-
-Built with:
-
-Python Flask
-Vue.js
-MySql
-
-Author
 Steve Porter
 
-License
+## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 

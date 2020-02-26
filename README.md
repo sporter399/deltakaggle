@@ -7,7 +7,7 @@ The front end user chooses numeric ranges within a number of variables dictated 
 
 Fork the github repo
 
-*Clone the github repo
+* Clone the github repo
 
 *In the server directory, run:
   pipenv install

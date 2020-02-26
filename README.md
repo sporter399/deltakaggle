@@ -7,13 +7,15 @@ The front end user chooses numeric ranges within a number of variables dictated 
 
 Fork the github repo
 
-*.Clone the github repo
-*.In the server directory, run:
-   pipenv install
-*.In the client directory, run:
+*Clone the github repo
+
+*In the server directory, run:
+  pipenv install
+*In the client directory, run:
    npm install
    npm run build
-*.Create a .env file in the project root with the following information:
+   
+*Create a .env file in the project root with the following information:
 
 APP_ID=deltakaggle
 APP_SECRET=deltakaggle_secret
@@ -23,19 +25,19 @@ DB_USER=db_username
 DB_PASS=db_password
 RUN_ENVIRONMENT=local
 
-*.Serve the application from /server with pipenv run python main.py
-*.Deltakaggle web interface will be available at https://localhost:5000/
+*Serve the application from /server with pipenv run python main.py
+*Deltakaggle web interface will be available at https://localhost:5000/
 
 ## Prerequisites
 
-*.Node (>9.8.0)
-*.Web-browser (Chrome preferred, limited testing on alternative browsers)
+*Node (>9.8.0)
+*Web-browser (Chrome preferred, limited testing on alternative browsers)
 
 ## Built with:
 
-*.Python Flask
-*.Vue.js
-*.SQLite / PostgreSQL
+*Python Flask
+*Vue.js
+*SQLite / PostgreSQL
 
 ## Author
 

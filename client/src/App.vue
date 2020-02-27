@@ -4,18 +4,15 @@
     <div>
       <button @click="handleNavClick">{{buttonText}}</button>
     </div>
-    
     <div v-if="!showInputFields">
       <Welcome  />
     </div>
     <div v-else-if="allDataEntered">
-
-      <DisplayAccepted  />
+      <DisplayAccepted v-bind:data="allDataEntered" />
     </div>
     <div v-else>
       <UserVars @dataEntered='dataEntered' title="Delta Bank Credit Applications" />
     </div>
-    
   </div>
 </template>
 
@@ -38,7 +35,6 @@ export default {
     return {
       showInputFields: false,
       allDataEntered: false,
-     
       buttonText: "Show Fields for Input of Variables",
       fromUserVars: '',
       eligible_applicants: [],
